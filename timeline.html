@@ -20,6 +20,36 @@
         </div>
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
+    <br><br>
+    <div class="mx-auto p-2">
+        <button id="mostrarBitacora">Bitácora</button>
+        <button id="mostrarPanel">Panel</button>
+    </div>
+    
+    <div id="bitacora" class="border mx-auto p-2">
+        <div>
+            <div><label for="">Tarea a registrar</label></div>
+            
+            <textarea id="tarea"></textarea>
+        </div>
+        <div>
+            <label for="tipoActividad">Actividad</label>
+            <select name="actividades" id="actividades">
+                <option value="0">Privada</option>
+            </select>
+            <label>Fecha</label>
+            <input type="date">
+
+            
+        </div>
+        <br>
+        <input type="file">
+        <button type="file">Adjuntar archivo</button>
+        <button id="guardar">Guardar</button>
+        
+        <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
+    </div>
+    
     
 </body>
 </html>
