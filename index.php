@@ -15,15 +15,15 @@
     <div class="p-3 mb-2 bg-success"></div>
     <div class="border-bottom">
         <div class="logo mx-auto p-2" style="width: 85%;">
-            <a href="https://www.ucol.mx/"><img src="./img/Escudo_UdeC.png" alt="Escudo de la Universidad de Colima"
+            <a href="https://www.ucol.mx/"><img src=".../img/Escudo_UdeC.png" alt="Escudo de la Universidad de Colima"
                     height="6%"></a>
-            <a href="https://www.ucol.mx/"><img src="./img/Nombre_UdeC.png" alt="Universidad de Colima"
+            <a href="https://www.ucol.mx/"><img src=".../img/Nombre_UdeC.png" alt="Universidad de Colima"
                     height="5%"></a>
         </div>
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
     <br>
-    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href="./privada/login.php">Ingresar</a></nav>
+    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href="./privada/index.php">Ingresar</a></nav>
     <br>
 
     <div class="border mx-auto p-2" style="width: 75%;">
@@ -36,7 +36,7 @@
 
 
 <?php
-        include 'db.php';
+        include 'db_conn.php';
         require_once('config.php');
 
         if ($saml->isAuthenticated()) {
