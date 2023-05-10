@@ -33,7 +33,9 @@ if (isset($_POST['submit'])) {
       echo "Error al crear registro: " . mysqli_error($conn);
     }
   }
+
 ?>
+
 
 <html lang="es">
 <head>
@@ -45,12 +47,11 @@ if (isset($_POST['submit'])) {
     
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="p-3 mb-2 bg-success"></div>
+    <div class="p-3 mb-2" style="background-color: #5c8c2c"></div>
     <div class="border-bottom">
         <div class="logo mx-auto p-2" style="width: 85%;">
             <a href="https://www.ucol.mx/"><img src=".././img/Escudo_UdeC.png" alt="Escudo de la Universidad de Colima"
@@ -63,34 +64,38 @@ if (isset($_POST['submit'])) {
     <br>
     <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
     <br><br>
-    <div class="mx-auto p-2">
+    <div class="mx-auto p-2" style="width: 75%;">
         <button id="mostrarBitacora">Bitácora</button>
         <button id="mostrarPanel">Panel</button>
     </div>
+    <br>
 
     
     
-    <div id="bitacora" class="border mx-auto p-2">
+    <div id="bitacora" class="mx-auto p-2" style="width: 75%;">
         <div>
             <div><label for="">Tarea a registrar</label></div>
             
-            <textarea id="tarea"></textarea>
+            <textarea id="tarea" name="tarea"></textarea>
         </div>
+        <br>
         <div>
             <label for="tipoActividad">Actividad</label>
             <select name="actividades" id="actividades">
                 <option value="0">Privada</option>
             </select>
             <label>Fecha</label>
-            <input type="date" id="fechact">
+            <input type="date" id="fechact" name="fechact">
 
             
         </div>
         <br>
-        <input type="file" id="archivo">
+        <input type="file" id="archivo" name="archivo">
         <input type="submit" name="guardar" value="Guardar tarea">
         
         <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
+
+        <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
     </div>
 
     

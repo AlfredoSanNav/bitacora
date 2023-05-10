@@ -12,12 +12,12 @@
 </head>
 
 <body>
-    <div class="p-3 mb-2 bg-success"></div>
+    <div class="p-3 mb-2" style="background-color: #5c8c2c"></div>
     <div class="border-bottom">
         <div class="logo mx-auto p-2" style="width: 85%;">
-            <a href="https://www.ucol.mx/"><img src=".../img/Escudo_UdeC.png" alt="Escudo de la Universidad de Colima"
+            <a href="https://www.ucol.mx/"><img src="./img/Escudo_UdeC.png" alt="Escudo de la Universidad de Colima"
                     height="6%"></a>
-            <a href="https://www.ucol.mx/"><img src=".../img/Nombre_UdeC.png" alt="Universidad de Colima"
+            <a href="https://www.ucol.mx/"><img src="./img/Nombre_UdeC.png" alt="Universidad de Colima"
                     height="5%"></a>
         </div>
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
@@ -35,7 +35,7 @@
     </div>
 
 
-<?php
+<!-- <?php
         include 'db_conn.php';
         require_once('config.php');
 
@@ -59,7 +59,7 @@
             </div>
             <?php
         }
-?>
+?> -->
 
 <footer class="p-3 mb-2 bg-secondary text-white fixed-bottom ">
         <div class=" mx-auto p-2" style="width: 90%;">
@@ -78,9 +78,7 @@
             </div>
         </div>
 
-    </footer>
 
-	<script src="https://www.ucol.mx/cms/apps/assets/js/apps.min.js"></script>
 
   
 </body>
