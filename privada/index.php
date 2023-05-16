@@ -1,6 +1,7 @@
 <?php
  //Se asegura que el usuario este autenticado
  include '../db_conn.php';
+ include './registrarUsuario.php';
  require_once("login.php"); 
 // $atributos = $saml->getAttributes(); //Obtiene sus atributos
  //echo "Bienvenido ";
@@ -9,32 +10,42 @@
 //  echo "<br><b>".$clave."</b>:".$valor[0];
 //}
 // echo "<br><br>Usted se encuentra en la secci&oacute;n privada de esta aplicaci&oacute;n<br><a href='../'>Ir a secci&oacute;n p&uacute;blica</a><br><a href='logout.php'>[Cerrar sesi&oacute;n]</a>";
-if (isset($_POST['submit'])) {
-    $atributos = $saml->getAttributes();
-    $variable_a_buscar = $atributos["uCorreo"][0];
-    $sql = "SELECT id FROM USUARIOS WHERE email = '$variable_a_buscar'";
-    $res = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($res);
-  
-    $id_usr = $row['id'];
-    $tarea = $_POST['tarea'];
-    $actividad = $_POST['actividades'];
-    $fecha = $_POST['fechact'];
-    $archivos = $_FILES['archivo']['name'];
-  
-    $sql = "INSERT INTO TAREAS (id, id_usr, tarea, act, fecha, archivos)
-              VALUES (NULL, '$id_usr', '$tarea', '$actividad', '$fecha', '$archivos')";
-  
-    $result = mysqli_query($conn, $sql);
-  
-    if ($result) {
-      header("Location: index.php?msg=Registro creado exitosamente");
-    } else {
-      echo "Error al crear registro: " . mysqli_error($conn);
-    }
-  }
 
-?>
+//Registro de usuario
+
+  if ($saml->isAuthenticated()) {
+    $atributos = $saml->getAttributes();
+}
+
+
+
+//Obtener información del portal
+$nocuenta = $atributos["uCuenta"][0];
+$nombre = $atributos["sn"][0];
+$apellido = $atributos["givenName"][0];
+$email = $atributos["uCorreo"][0];
+
+//Hace la consulta para saber si el correo ya está registrado
+$sql = "SELECT * FROM usuarios WHERE email = '$email'";
+$result = $conn->query($sql);
+
+if ($result->num_rows >= 1) {
+    // El usuario está registrado, no hace nada.
+  } else {
+
+    // El usuario no está registrado así que guarda la información de este.
+    $sql = "INSERT INTO USUARIOS (id, num_cuenta, nombre, apellidos, email) VALUES (NULL,'$nocuenta', '$nombre', '$givenName', '$email')";
+
+    if ($conn->query($sql) === TRUE) {
+        //echo "Usuario registrado exitosamente";
+    } else {
+        //echo "Error al registrar al usuario: " . $conn->error;
+    }
+
+  };
+
+?>    
+
 
 
 <html lang="es">
@@ -48,10 +59,9 @@ if (isset($_POST['submit'])) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
-</head>
 
-<?php include 'funciones.php'; ?>
-<body onload="registrarUsuario()">
+</head>
+<body>
 
     <div class="p-3 mb-2" style="background-color: #5c8c2c"></div>
     <div class="border-bottom">
@@ -75,9 +85,10 @@ if (isset($_POST['submit'])) {
     
     
     <div id="bitacora" class="mx-auto p-2" style="width: 75%;">
+    <form method="POST" enctype="multipart/form-data">
         <div>
             <div><label for="">Tarea a registrar</label></div>
-            
+
             <textarea id="tarea" name="tarea"></textarea>
         </div>
         <br>
@@ -89,17 +100,17 @@ if (isset($_POST['submit'])) {
             <label>Fecha</label>
             <input type="date" id="fechact" name="fechact">
 
-            
+
         </div>
         <br>
         <input type="file" id="archivo" name="archivo">
-        <input type="submit" name="guardar" value="Guardar tarea">
-        
-        <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
+        <input type="submit" name="submit" value="Guardar tarea">
+    </form>
 
-        <script src="registrarUsuario.php"></script>
-        <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
-    </div>
+    <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
 
+    <script src="registrarUsuario.php"></script>
+    <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+</div>
     
 </body>
