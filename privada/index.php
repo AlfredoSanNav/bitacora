@@ -48,9 +48,11 @@ if (isset($_POST['submit'])) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+
+<?php include 'funciones.php'; ?>
+<body onload="registrarUsuario()">
+
     <div class="p-3 mb-2" style="background-color: #5c8c2c"></div>
     <div class="border-bottom">
         <div class="logo mx-auto p-2" style="width: 85%;">
@@ -95,6 +97,7 @@ if (isset($_POST['submit'])) {
         
         <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
 
+        <script src="registrarUsuario.php"></script>
         <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
     </div>
 
