@@ -70,40 +70,36 @@ if ($result->num_rows >= 1) {
     <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
-
         <a class="btn btn-light" href="./index.php">Bitácora</a>
         <a class="btn btn-light" href="./panel.php">Panel</a>
-
     </div>
     <br>
 
+    <!--- Lista de actividades --->
+    <div class="table-responsive mx-auto p-2" style="width: 75%">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Actividad</th>
+                    <th>Agregar Sub actividad</th>
+                    <th>Ver</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody class="activity" id="listaPanel">
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="./agregaPanelAct.php">Agregar nueva actividad</a>
+    </div>
+    <br>
+
+    <!--- Pendiente: Reporte de excel--->
+
+
     
     
-    <div id="bitacora" class="form-floating mx-auto p-2" style="width: 75%;">
-    <form method="POST" enctype="multipart/form-data">
-        <div>
-            <div><label for="tarea">Tarea a registrar</label></div>
-            <textarea id="tarea" name="tarea"></textarea>
-        </div>
-        <br>
-        <div>
-            <label for="tipoActividad">Actividad</label>
-            <select name="actividades" id="actividades">
-                <option value="0">Privada</option>
-                <option value="1">General</option>
-            </select>
-            <label>Fecha</label>
-            <input type="date" id="fechact" name="fechact">
-
-
-        </div>
-        <br>
-        <input type="file" id="archivo" name="archivo">
-        <input type="submit" name="submit" value="Guardar tarea" class="btn btn-success">
-    </form>
-
-    <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
-
+   
 
     <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </div>

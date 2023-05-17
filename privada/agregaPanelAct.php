@@ -70,40 +70,40 @@ if ($result->num_rows >= 1) {
     <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
-
         <a class="btn btn-light" href="./index.php">Bitácora</a>
         <a class="btn btn-light" href="./panel.php">Panel</a>
-
     </div>
-    <br>
+ 
+
+    <!--- Formulario para añadir actividades --->
+    <div class="mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
+        <form action="submit"> 
+            <fieldset>
+                <legend>Agregar actividad</legend>
+                <p>
+                    <label for="nombreAct">Nombre:</label>
+                    <input type="text" name="nombreAct" id="nombreAct">
+                </p>
+                <p>
+                    <label for="descripcionAct">Descripción:</label>
+                    <input type="text" name="descripcionAct" id="descripcionAct">
+                </p> 
+                <p>
+                    <label for="invitar">Invitar:</label>
+                    <input type="text" name="invitar" id="invitar">
+                </p>
+                <button class="btn btn-danger" id="btnCalcelarAct">Cancelar</button>
+                <button class="btn btn-success" id="btnAgregarAct">Guardar</button>
+            </fieldset>
+
+            
+            <br>
+        </form>
+    </div>
 
     
     
-    <div id="bitacora" class="form-floating mx-auto p-2" style="width: 75%;">
-    <form method="POST" enctype="multipart/form-data">
-        <div>
-            <div><label for="tarea">Tarea a registrar</label></div>
-            <textarea id="tarea" name="tarea"></textarea>
-        </div>
-        <br>
-        <div>
-            <label for="tipoActividad">Actividad</label>
-            <select name="actividades" id="actividades">
-                <option value="0">Privada</option>
-                <option value="1">General</option>
-            </select>
-            <label>Fecha</label>
-            <input type="date" id="fechact" name="fechact">
-
-
-        </div>
-        <br>
-        <input type="file" id="archivo" name="archivo">
-        <input type="submit" name="submit" value="Guardar tarea" class="btn btn-success">
-    </form>
-
-    <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
-
+   
 
     <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </div>

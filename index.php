@@ -61,7 +61,7 @@
         }
 ?> -->
 
-<footer class="p-3 mb-2 bg-secondary text-white fixed-bottom ">
+    <footer class=" text-white fixed-bottom " style="background-color: #333333">
         <div class=" mx-auto p-2" style="width: 90%;">
             <div class="text-end">
                 <p>Dirección: Av. Universidad No. 333, Las Víboras; CP 28040 Colima, Colima, México</p>
@@ -77,6 +77,8 @@
                 <p>© Derechos Reservados Universidad de Colima</p>
             </div>
         </div>
+
+    </footer>
 
 
 
