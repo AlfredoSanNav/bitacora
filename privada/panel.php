@@ -88,6 +88,9 @@ if ($result->num_rows >= 1) {
                 </tr>
             </thead>
             <tbody class="activity" id="listaPanel">
+                <?php
+
+                ?>
             </tbody>
         </table>
         <a class="btn btn-success" href="./agregaPanelAct.php">Agregar nueva actividad</a>

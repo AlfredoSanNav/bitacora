@@ -37,6 +37,27 @@ if ($result->num_rows >= 1) {
 
   };
 
+  if (isset($_POST['btnAgregaAct'])) {
+    // Se ha enviado el formulario y se hizo clic en el botón de enviar
+    $atributos = $saml->getAttributes();
+    $nocuenta = $atributos["uCuenta"][0];
+    // Obtén los valores de los campos del formulario
+    $nombreAct = $_POST['nombreAct'];
+    $descripcionAct = $_POST['descripcionAct'];
+    $correoInvitar = $_POST['correoInvitar'];
+  
+    // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
+    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados)
+    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar')";
+    // Redirige a otra página o muestra un mensaje de éxito
+    $result = mysqli_query($conn, $sql);
+    
+    if ($result) {
+        header("Location: panel.php");
+      } else {
+        echo "Error al crear registro: " . mysqli_error($conn);
+      }
+  }
 ?>    
 
 
@@ -77,23 +98,23 @@ if ($result->num_rows >= 1) {
 
     <!--- Formulario para añadir actividades --->
     <div class="mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
-        <form action="submit"> 
+        <form action="" method="post"> 
             <fieldset>
                 <legend>Agregar actividad</legend>
                 <p>
                     <label for="nombreAct">Nombre:</label>
-                    <input type="text" name="nombreAct" id="nombreAct">
+                    <input type="text" name="nombreAct" >
                 </p>
                 <p>
                     <label for="descripcionAct">Descripción:</label>
-                    <input type="text" name="descripcionAct" id="descripcionAct">
+                    <input type="text" name="descripcionAct" >
                 </p> 
                 <p>
-                    <label for="invitar">Invitar:</label>
-                    <input type="text" name="invitar" id="invitar">
+                    <label for="correoInvitar">Invitar:</label>
+                    <input type="text" name="correoInvitar" >
                 </p>
-                <button class="btn btn-danger" id="btnCalcelarAct">Cancelar</button>
-                <button class="btn btn-success" id="btnAgregarAct">Guardar</button>
+                <button class="btn btn-danger" name="btnCalcelarAct" type="Reset">Cancelar</button>
+                <button class="btn btn-success" name="btnAgregaAct" type="submit" >Guardar</button>
             </fieldset>
 
             
