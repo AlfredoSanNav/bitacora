@@ -111,9 +111,9 @@ if ($result->num_rows >= 1) {
                 </p> 
                 <p>
                     <label for="correoInvitar">Invitar:</label>
-                    <input type="text" name="correoInvitar" >
+                    <input type="email" multiple name="correoInvitar" >
                 </p>
-                <button class="btn btn-danger" name="btnCalcelarAct" type="Reset">Cancelar</button>
+                <a class="btn btn-danger" name="btnCalcelarAct" href="./panel.php">Cancelar</a>
                 <button class="btn btn-success" name="btnAgregaAct" type="submit" >Guardar</button>
             </fieldset>
 
