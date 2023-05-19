@@ -1,7 +1,6 @@
 <?php
  //Se asegura que el usuario este autenticado
  include '../db_conn.php';
- include './registrarUsuario.php';
  require_once("login.php"); 
 
 //Registro de usuario

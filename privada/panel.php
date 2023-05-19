@@ -1,7 +1,6 @@
 <?php
  //Se asegura que el usuario este autenticado
  include '../db_conn.php';
- include './registrarUsuario.php';
  require_once("login.php"); 
 
 //Registro de usuario
@@ -110,7 +109,7 @@ if ($result->num_rows >= 1) {
                         } else {
                             echo "<td>Esto es una subactividad</td>";
                         };                        
-                        echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Ver</button></div></td>';
+                        echo '<td><div><a class="btn btn-light" data-id="'.$row['id_usuario'].'" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
                         echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Editar</button></div></td>';
                         echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Eliminar</button></div></td>';
                     }

@@ -9,8 +9,6 @@
     $atributos = $saml->getAttributes();
 }
 
-
-
 //Obtener información del portal
 $nocuenta = $atributos["uCuenta"][0];
 $nombre = $atributos["sn"][0];
@@ -36,30 +34,7 @@ if ($result->num_rows >= 1) {
 
   };
 
-  if (isset($_POST['btnAgregaAct'])) {
-    // Se ha enviado el formulario y se hizo clic en el botón de enviar
-    $atributos = $saml->getAttributes();
-    $nocuenta = $atributos["uCuenta"][0];
-    // Obtén los valores de los campos del formulario
-    $nombreAct = $_POST['nombreAct'];
-    $descripcionAct = $_POST['descripcionAct'];
-    $correoInvitar = $_POST['correoInvitar'];
-  
-    // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
-    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo)
-    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 0)";
-    // Redirige a otra página o muestra un mensaje de éxito
-    $result = mysqli_query($conn, $sql);
-    
-    if ($result) {
-        header("Location: panel.php");
-      } else {
-        echo "Error al crear registro: " . mysqli_error($conn);
-      }
-  }
 ?>    
-
-
 
 <html lang="es">
 <head>
@@ -93,33 +68,33 @@ if ($result->num_rows >= 1) {
         <a class="btn btn-light" href="./index.php">Bitácora</a>
         <a class="btn btn-light" href="./panel.php">Panel</a>
     </div>
- 
 
-    <!--- Formulario para añadir actividades --->
-    <div class="mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
-        <form action="" method="post"> 
-            <fieldset>
-                <legend>Agregar actividad</legend>
-                <p>
-                    <label for="nombreAct">Nombre:</label>
-                    <input type="text" name="nombreAct" >
-                </p>
-                <p>
-                    <label for="descripcionAct">Descripción:</label>
-                    <input type="text" name="descripcionAct" >
-                </p> 
-                <p>
-                    <label for="correoInvitar">Invitar:</label>
-                    <input type="email" multiple name="correoInvitar" >
-                </p>
-                <a class="btn btn-danger" name="btnCalcelarAct" href="./panel.php">Cancelar</a>
-                <button class="btn btn-success" name="btnAgregaAct" type="submit" >Guardar</button>
-            </fieldset>
+    <!--- Actividad --->
+    <div class="card mx-auto p-2" style="width: 75%;">
+        <h1>Consultar actividad</h1>
+        <?php 
+        include '../db_conn.php';
 
-            
-            <br>
-        </form>
+        // Obtener el identificador de la actividad de la URL
+        $id = $_GET['id'];
+
+
+         $sql = "SELECT * FROM ACTIVIDADES WHERE id_usuario = '$id'";
+
+         $result = $conn->query($sql);
+         $row = $result->fetch_assoc();
+
+         // Mostrar la información de la actividad
+         echo "<p><b>Actividad:</b> " . $row['nombre'] . "</p>";
+         echo "<p><b>Descripción:</b> " . $row['descripcion'] . "</p>";
+         echo "<p><b>Correos invitados:</b> " . $row['invitados'] . "</p>";
+        ?>
+        <br>
+        <a class="btn btn-success" href="./panel.php" style="witdh: 30%">Volver</a>
     </div>
+
+   
+
 
     
     
