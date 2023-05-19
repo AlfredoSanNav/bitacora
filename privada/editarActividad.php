@@ -36,21 +36,18 @@ if ($result->num_rows >= 1) {
 
   };
 
-  if (isset($_POST['btnAgregaAct'])) {
-    // Se ha enviado el formulario y se hizo clic en el botón de enviar
-    $atributos = $saml->getAttributes();
-    $nocuenta = $atributos["uCuenta"][0];
+  if (isset($_POST['btnEditarAct'])) {
     // Obtén los valores de los campos del formulario
     $nombreAct = $_POST['nombreAct'];
     $descripcionAct = $_POST['descripcionAct'];
     $correoInvitar = $_POST['correoInvitar'];
-  
-    // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
-    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo)
-    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 0)";
-    // Redirige a otra página o muestra un mensaje de éxito
-    $result = mysqli_query($conn, $sql);
+    $id = $_GET['id'];
     
+    // Envía la petición update a la base de datos
+    $sql = "UPDATE ACTIVIDADES SET nombre = '$nombreAct', descripcion = '$descripcionAct', invitados = '$correoInvitar' WHERE id_usuario = $id";
+    $result = mysqli_query($conn, $sql);
+
+    //Comprueba el exito de la petición 
     if ($result) {
         header("Location: panel.php");
       } else {
@@ -58,8 +55,6 @@ if ($result->num_rows >= 1) {
       }
   }
 ?>    
-
-
 
 <html lang="es">
 <head>
@@ -96,34 +91,41 @@ if ($result->num_rows >= 1) {
  
 
     <!--- Formulario para añadir actividades --->
-    <div class="mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
+    <div class="card mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
         <form action="" method="post"> 
             <fieldset>
-                <legend>Agregar actividad</legend>
+                <legend>Editar actividad</legend>
+
+                <!--- Trae la información de la actividad--->
+                <?php
+                include '../db_conn.php';
+
+                $id = $_GET['id'];
+                $sql = "SELECT * FROM ACTIVIDADES WHERE id_usuario = '$id'";
+                $result = $conn->query($sql);
+                $row = $result->fetch_assoc();
+
+                echo '
                 <p>
                     <label for="nombreAct">Nombre:</label>
-                    <input type="text" name="nombreAct" >
+                    <input type="text" name="nombreAct" value="'.$row[nombre].'" >
                 </p>
                 <p>
                     <label for="descripcionAct">Descripción:</label>
-                    <input type="text" name="descripcionAct" >
+                    <input type="text" name="descripcionAct" value="'.$row[descripcion].'">
                 </p> 
                 <p>
                     <label for="correoInvitar">Invitar:</label>
-                    <input type="email" multiple name="correoInvitar" >
+                    <input type="email" multiple name="correoInvitar" value="'.$row[invitados].'">
                 </p>
                 <a class="btn btn-danger" name="btnCalcelarAct" href="./panel.php">Cancelar</a>
-                <button class="btn btn-success" name="btnAgregaAct" type="submit" >Guardar</button>
+                <button class="btn btn-success" name="btnEditarAct" type="submit" >Editar</button>
+                '
+                ?>                
             </fieldset>
-
-            
             <br>
         </form>
     </div>
-
-    
-    
-   
 
     <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </div>
