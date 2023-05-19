@@ -62,7 +62,7 @@ if ($result->num_rows >= 1) {
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
     <br>
-    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
+    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><?php echo $nombre." ".$apellido;?><a href='logout.php'>Cerrar sesión</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
         <a class="btn btn-light" href="./index.php">Bitácora</a>
@@ -70,8 +70,9 @@ if ($result->num_rows >= 1) {
     </div>
 
     <!--- Actividad --->
-    <div class="card mx-auto p-2" style="width: 75%;">
-        <h1>Consultar actividad</h1>
+    <div class="card mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
+        <h1 style="font-size: 175%">Consultar actividad</h1>
+        <br>
         <?php 
         include '../db_conn.php';
 

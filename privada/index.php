@@ -67,7 +67,7 @@ if ($result->num_rows >= 1) {
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
     <br>
-    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
+    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><?php echo $nombre." ".$apellido;?><a href='logout.php'>Cerrar sesión</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
 
@@ -75,11 +75,10 @@ if ($result->num_rows >= 1) {
         <a class="btn btn-light" href="./panel.php">Panel</a>
 
     </div>
-    <br>
 
     
-    
-    <div id="bitacora" class="form-floating mx-auto p-2" style="width: 75%;">
+    <!--- Formulario de bitacora --->
+    <div id="bitacora" class="card mx-auto p-2" style="width: 75%;background-color: F5F5F5">
     <form method="POST" enctype="multipart/form-data">
         <div>
             <div><label for="tarea">Tarea a registrar</label></div>
@@ -90,7 +89,11 @@ if ($result->num_rows >= 1) {
             <label for="tipoActividad">Actividad</label>
             <select name="actividades" id="actividades">
                 <option value="0">Privada</option>
-                <option value="1">General</option>
+                <!--- Queda pendiente añadir las opciones --->
+                <?php 
+                
+                ?>
+
             </select>
             <label>Fecha</label>
             <input type="date" id="fechact" name="fechact">

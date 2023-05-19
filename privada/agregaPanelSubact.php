@@ -87,7 +87,7 @@ if ($result->num_rows >= 1) {
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
     <br>
-    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
+    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><?php echo $nombre." ".$apellido;?><a href='logout.php'>Cerrar sesión</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
         <a class="btn btn-light" href="./index.php">Bitácora</a>
@@ -96,7 +96,7 @@ if ($result->num_rows >= 1) {
  
 
     <!--- Formulario para añadir actividades --->
-    <div class="mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
+    <div class="card mx-auto p-2" style="width: 75%; background-color: F5F5F5;">
         <form action="" method="post"> 
             <fieldset>
                 <legend>Agregar Subctividad</legend>

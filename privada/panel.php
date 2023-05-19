@@ -66,7 +66,7 @@ if ($result->num_rows >= 1) {
         <header class="mx-auto p-2" style="width: 75%;">Sistema de bitácora</header>
     </div>
     <br>
-    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><a href='logout.php'>[Cerrar sesi&oacute;n]</a></nav>
+    <nav class="border mx-auto p-2 text-end" style="width: 75%;"><?php echo $nombre." ".$apellido;?><a href='logout.php'>Cerrar sesión</a></nav>
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
         <a class="btn btn-light" href="./index.php">Bitácora</a>
@@ -76,7 +76,7 @@ if ($result->num_rows >= 1) {
 
     <!--- Lista de actividades --->
     <div class="table-responsive mx-auto p-2" style="width: 75%">
-        <table class="table table-hover">
+        <table class="table table-hover text-center" style="background-color: F5F5F5;">
             <thead>
                 <tr>
                     <th>Actividad</th>
@@ -115,7 +115,7 @@ if ($result->num_rows >= 1) {
                         <td>
                         <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
                         <input type="hidden" name="id" value='.$row['id_usuario'].'>
-                        <button class="btn btn-danger" type="submit"></button>
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
                         </form>
                         </td>';
                         
@@ -126,20 +126,14 @@ if ($result->num_rows >= 1) {
                 ?>
             </tbody>
         </table>
-        <br>
+        
         <a class="btn btn-success" href="./agregaPanelAct.php">Agregar nueva actividad</a>
     </div>
     <br>
 
     <!--- Pendiente: Reporte de excel--->
 
-
-    
-    
-   
-
     <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </div>
 <br><br><br>
-
 </body>
