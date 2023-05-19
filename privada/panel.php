@@ -111,13 +111,18 @@ if ($result->num_rows >= 1) {
                         };                        
                         echo '<td><div><a class="btn btn-light" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
                         echo '<td><div><a class="btn btn-light" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
-                        echo '<td><div><a class="btn btn-danger" name="eliminarAct" href="./eliminarAct.php?id='.$row['id_usuario'].' ">Eliminar</a></div></td>';
+                        echo '
+                        <td>
+                        <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
+                        <input type="hidden" name="id" value='.$row['id_usuario'].'>
+                        <button class="btn btn-danger" type="submit"></button>
+                        </form>
+                        </td>';
+                        
                     }
                 
                     echo "</table>";
-                } else {
-                    echo "No se encontraron resultados.";
-                }
+                } else 
                 ?>
             </tbody>
         </table>
