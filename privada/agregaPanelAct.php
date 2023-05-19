@@ -47,8 +47,8 @@ if ($result->num_rows >= 1) {
     $correoInvitar = $_POST['correoInvitar'];
   
     // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
-    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados)
-    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar')";
+    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo)
+    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 0)";
     // Redirige a otra página o muestra un mensaje de éxito
     $result = mysqli_query($conn, $sql);
     

@@ -73,7 +73,7 @@ if ($result->num_rows >= 1) {
         <a class="btn btn-light" href="./index.php">Bitácora</a>
         <a class="btn btn-light" href="./panel.php">Panel</a>
     </div>
-    <br>
+
 
     <!--- Lista de actividades --->
     <div class="table-responsive mx-auto p-2" style="width: 75%">
@@ -87,12 +87,42 @@ if ($result->num_rows >= 1) {
                     <th>Eliminar</th>
                 </tr>
             </thead>
+
+            <!--- Agrega el cuerpo de la tabla --->
             <tbody class="activity" id="listaPanel">
                 <?php
+                include '../db_conn.php';
 
+                $atributos = $saml->getAttributes();
+                $nocuenta = $atributos["uCuenta"][0];
+
+                $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta'";
+                $result = $conn->query($sql);
+                
+                // Verificar si hay resultados
+                if ($result->num_rows > 0) {
+                    // Iterar sobre los resultados y generar las filas de la tabla
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['nombre'] . "</td>";
+                        if($row['tipo']==0){
+                            echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'" href="./agregaPanelAct.php">Agregar subactividad</button></div></td>';
+                        } else {
+                            echo "<td>Esto es una subactividad</td>";
+                        };                        
+                        echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Ver</button></div></td>';
+                        echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Editar</button></div></td>';
+                        echo '<td><div><button class="btn btn-light" data-id="'.$row['id_usuario'].'">Eliminar</button></div></td>';
+                    }
+                
+                    echo "</table>";
+                } else {
+                    echo "No se encontraron resultados.";
+                }
                 ?>
             </tbody>
         </table>
+        <br>
         <a class="btn btn-success" href="./agregaPanelAct.php">Agregar nueva actividad</a>
     </div>
     <br>
