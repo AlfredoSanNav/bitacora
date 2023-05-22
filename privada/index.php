@@ -1,7 +1,6 @@
 <?php
  //Se asegura que el usuario este autenticado
  include '../db_conn.php';
- include './registrarUsuario.php';
  require_once("login.php"); 
 
 //Registro de usuario
@@ -36,6 +35,29 @@ if ($result->num_rows >= 1) {
     }
 
   };
+
+  // Botón para añadir tarea
+
+  if (isset($_POST['submit'])) {
+    $atributos = $saml->getAttributes();
+    $noCuenta = $atributos["uCuenta"][0];
+
+    $tarea = $_POST['tarea'];
+    $actividad = $_POST['actividad'];
+    $fecha = $_POST['fecha'];
+    $archivo = $_FILES['archivo']['name'];
+    
+    $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo)
+              VALUES (NULL, '$noCuenta', '$tarea', '$actividad', '$fecha', '$archivo')";
+  
+    $result = mysqli_query($conn, $sql);
+  
+    if ($result) {
+      header("Location: index.php");
+    } else {
+      echo "Error al crear registro: " . mysqli_error($conn);
+    }
+  }
 
 ?>    
 
@@ -87,16 +109,33 @@ if ($result->num_rows >= 1) {
         <br>
         <div>
             <label for="tipoActividad">Actividad</label>
-            <select name="actividades" id="actividades">
+            <select name="actividad" id="actividad">
                 <option value="0">Privada</option>
-                <!--- Queda pendiente añadir las opciones --->
+                <!--- Llama a las opciones registradas en la base de datos --->
                 <?php 
+                include '../db_conn.php';
+
+                $atributos = $saml->getAttributes();
+                $nocuenta = $atributos["uCuenta"][0];
+
+                $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta'";
+                $result = $conn->query($sql);
+
+
+                if ($result->num_rows > 0) {
+                    // Iterar sobre los resultados y generar las filas de la tabla
+                    while ($row = $result->fetch_assoc()) {
+                      
+                        echo '<option value="'.$row['id_usuario'].'">' . $row['nombre'] . '</option>';
+                        
+                    }
                 
+                } 
                 ?>
 
             </select>
             <label>Fecha</label>
-            <input type="date" id="fechact" name="fechact">
+            <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>">
 
 
         </div>

@@ -3,7 +3,7 @@
  include '../db_conn.php';
  require_once("login.php"); 
 
-// Verificar si se envió el ID del registro a eliminar
+ // Verificar si se envió el ID del registro a eliminar
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
