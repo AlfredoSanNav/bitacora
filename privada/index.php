@@ -47,6 +47,9 @@ if ($result->num_rows >= 1) {
     $fecha = $_POST['fecha'];
     $archivo = $_FILES['archivo']['name'];
     
+    // Test para añadir archivo (pendiente jeje)
+
+    // Fin del test
     $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo)
               VALUES (NULL, '$noCuenta', '$tarea', '$actividad', '$fecha', '$archivo')";
   
@@ -143,12 +146,45 @@ if ($result->num_rows >= 1) {
         <input type="file" id="archivo" name="archivo">
         <input type="submit" name="submit" value="Guardar tarea" class="btn btn-success">
     </form>
+</div>
+<br>
 
     <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
+    <div  class="mx-auto p-2" style="width: 75%;">
+        <center><h2>Tareas</h2></center>
+        <?php 
+        include '../db_conn.php';
 
+        $atributos = $saml->getAttributes();
+        $nocuenta = $atributos["uCuenta"][0];
+        $nombre = $atributos["sn"][0];
+        $apellido = $atributos["givenName"][0];
+        $email = $atributos["uCorreo"][0];
 
-    <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
-</div>
-<br><br><br>
+        $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta'";
+        $result = $conn->query($sql);
+        
+        // Verificar si hay resultados
+        if ($result->num_rows > 0) {
+            // Iterar sobre los resultados y generar las filas de la tabla
+            while ($row = $result->fetch_assoc()) {
+                $date = new DateTime($row[fecha]);
+                $dateText = date_format($date, 'l, F d, Y');
+                echo '
+                <article class="well act186 actividadArticle">
+                    <header class="pull-left"><h5>'.$nombre." ".$apellido.'</h5></header>
+					<span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
+                    <span class="pull-right cursiva"><a href="#" class="actClic" nact="186">Act2</a>|</span><div class="clearer"></div>
+				<p>Tarea prueba</p><p class="archivo pull-right"><a id="8671" href="../descargar/228/8671/">Descargar</a></p><div class="clearfix"></div></article>
+                ';
+                
+            }
+        
+            echo "</table>";
+        } 
+        ?>
+        ?>
+    </div>
 
+<script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </body>
