@@ -253,6 +253,10 @@ if ($result->num_rows >= 1) {
             }
 
         }
+        if(isset($_POST['btnQuitarFiltro'])){
+            $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta'";
+        }
+        
 
         
         $result = $conn->query($sql);
