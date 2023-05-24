@@ -196,8 +196,8 @@ if ($result->num_rows >= 1) {
                 </div>
                 <br>
                 <div class="text-end">
-                    <button class="btn btn-danger">Deshacer filtrado</button>
-                    <button class="btn btn-success">Filtrar</button>
+                    <button class="btn btn-danger" name="btnQuitarFiltro" id="btnQuitarFiltro">Deshacer filtrado</button>
+                    <button class="btn btn-success" name="btnFiltrar" id="btnFiltrar">Filtrar</button>
                 </div>
                 
             </fieldset>
@@ -225,6 +225,36 @@ if ($result->num_rows >= 1) {
         $email = $atributos["uCorreo"][0];
 
         $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta'";
+
+        // Pruebas para el botón de filtros ------------------->>
+        if(isset($_POST['btnFiltrar'])){
+            $actividadFiltro = $_POST['actividadFiltro'];
+            $fechaInicio = $_POST['fechaInicio'];
+            $fechaFin = $_POST['fechaFin'];
+
+            
+
+            // Verificar si se seleccionó un filtro de actividad
+            if ($actividadFiltro > 0) {
+                // Agregar condición de actividad a la consulta
+                $sql .= " AND actividad = '$actividadFiltro'";
+            }
+
+            // Verificar si se seleccionó un filtro de fecha de inicio
+            if (!empty($fechaInicio)) {
+                // Agregar condición de fecha de inicio a la consulta
+                $sql .= " AND fecha >= '$fechaInicio'";
+            }
+
+            // Verificar si se seleccionó un filtro de fecha de fin
+            if (!empty($fechaFin)) {
+                // Agregar condición de fecha de fin a la consulta
+                $sql .= " AND fecha <= '$fechaFin'";
+            }
+
+        }
+
+        
         $result = $conn->query($sql);
         
         // Verificar si hay resultados
