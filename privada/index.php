@@ -45,13 +45,16 @@ if ($result->num_rows >= 1) {
     $tarea = $_POST['tarea'];
     $actividad = $_POST['actividad'];
     $fecha = $_POST['fecha'];
-    $archivo = $_FILES['archivo']['name'];
+    $archivo = $_FILES['archivo']['tmp_name'];
+    $nombreArchivo = $_FILES['archivo']['name'];
+    $contenido_archivo = base64_encode(file_get_contents($archivo));
+
     
     // Test para añadir archivo (pendiente jeje)
 
     // Fin del test
-    $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo)
-              VALUES (NULL, '$noCuenta', '$tarea', '$actividad', '$fecha', '$archivo')";
+    $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo, nombre_archivo)
+              VALUES (NULL, '$noCuenta', '$tarea', '$actividad', '$fecha', '$contenido_archivo', '$nombreArchivo')";
   
     $result = mysqli_query($conn, $sql);
   
@@ -109,7 +112,7 @@ if ($result->num_rows >= 1) {
             <div><label for="tarea">Tarea a registrar</label></div>
             <textarea id="tarea" name="tarea"></textarea>
         </div>
-        <br>
+         <br>
         <div>
             <label for="tipoActividad">Actividad</label>
             <select name="actividad" id="actividad">
@@ -147,11 +150,71 @@ if ($result->num_rows >= 1) {
         <input type="submit" name="submit" value="Guardar tarea" class="btn btn-success">
     </form>
 </div>
-<br>
+<br><br>
+    
+    <!--- Sección de filtros ---> 
+    <div class="mx-auto p-2" style="width: 75%;">
+        <form action="" method="post" >
+            <fieldset>
+                <center>
+                    <legend for="actividadFiltro" style="font-size: 125%">Filtrar tareas</legend><br>
+                </center>
+                
+                <label for="actividadFiltro">Actividad: </label>
+                <select name="actividadFiltro" id="actividadFiltro">
+                    <option value="0">- Selecciones actividad -</option>
+                    <!--- Llama a las opciones registradas en la base de datos --->
+                    <?php 
+                    include '../db_conn.php';
 
-    <!--- Pendiente: Mostrar las tareas y con sus respectivos filtros-->
+                    $atributos = $saml->getAttributes();
+                    $nocuenta = $atributos["uCuenta"][0];
+
+                    $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta'";
+                    $result = $conn->query($sql);
+
+
+                    if ($result->num_rows > 0) {
+                        // Iterar sobre los resultados y generar las filas de la tabla
+                        while ($row = $result->fetch_assoc()) {
+                        
+                            echo '<option value="'.$row['id_usuario'].'">' . $row['nombre'] . '</option>';
+                            
+                        }
+                    
+                    } 
+                    ?>
+                </select>
+                <br><br>
+                <div>
+                    <label for="fechaInicio">Fecha inicio</label>
+                    <input type="date" name="fechaInicio">
+                </div>
+                <div>
+                    <label for="fechaFin">Fecha fin</label>
+                    <input type="date" name="fechaFin">
+                </div>
+                <br>
+                <div class="text-end">
+                    <button class="btn btn-danger">Deshacer filtrado</button>
+                    <button class="btn btn-success">Filtrar</button>
+                </div>
+                
+            </fieldset>
+        
+        
+        
+        <br><br>
+
+        </form>
+
+    </div>
+    
+
+    <!--- Sección para mostrar tareas -->
     <div  class="mx-auto p-2" style="width: 75%;">
         <center><h2>Tareas</h2></center>
+        <br>
         <?php 
         include '../db_conn.php';
 
@@ -168,21 +231,34 @@ if ($result->num_rows >= 1) {
         if ($result->num_rows > 0) {
             // Iterar sobre los resultados y generar las filas de la tabla
             while ($row = $result->fetch_assoc()) {
+                //Obtiene los valores de la actividad añadida
+                $idActividad = $row['actividad'];
+                $valoresAct = "SELECT * FROM ACTIVIDADES WHERE id_usuario = '$idActividad'";
+                $resultValores = $conn->query($valoresAct);
+                if ($resultValores->num_rows > 0) {
+                    // Obtener el primer resultado de la subconsulta
+                    $rowActividad = $resultValores->fetch_assoc();
+                    $nombreActividad = $rowActividad['nombre'];
+                }
+    
                 $date = new DateTime($row[fecha]);
                 $dateText = date_format($date, 'l, F d, Y');
                 echo '
-                <article class="well act186 actividadArticle">
-                    <header class="pull-left"><h5>'.$nombre." ".$apellido.'</h5></header>
-					<span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
-                    <span class="pull-right cursiva"><a href="#" class="actClic" nact="186">Act2</a>|</span><div class="clearer"></div>
-				<p>Tarea prueba</p><p class="archivo pull-right"><a id="8671" href="../descargar/228/8671/">Descargar</a></p><div class="clearfix"></div></article>
+                <article class="card mx-auto p-2" >
+                    <br>
+                    <header class=""><h5>'.$nombre." ".$apellido." ".'</h5></header>
+                    <span class="cursiva"><a href="#" >'.$nombreActividad.'</a> | <span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
+                    <br><br>
+				    <p>'.$row[descripcion].'</p>
+                    <p class="archivo pull-right"><a id="8671" href="descargar_archivo.php?id='.$row[id].'">Descargar</a></p><div class="clearfix"></div>
+                </article>
+                <br>
                 ';
                 
             }
         
-            echo "</table>";
+            echo "<br><br><br>";
         } 
-        ?>
         ?>
     </div>
 
