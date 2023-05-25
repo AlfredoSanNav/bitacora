@@ -51,6 +51,7 @@ if ($result->num_rows >= 1) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/phpoffice/phpspreadsheet@1.18.0/dist/phpspreadsheet.min.js"></script>
 
 </head>
 <body>
@@ -129,9 +130,64 @@ if ($result->num_rows >= 1) {
         
         <a class="btn btn-success" href="./agregaPanelAct.php">Agregar nueva actividad</a>
     </div>
-    <br>
 
-    <!--- Pendiente: Reporte de excel--->
+    <!--- Formulario para reporte de excel--->
+
+     <div class="mx-auto p-2" style="width: 75%;">
+        <form action="generar_reporte.php" method="post" >
+            <fieldset>
+                <center>
+                    <legend for="reporteExcel" style="font-size: 200%">Reporte Excel</legend><br>
+                </center>
+                <br>
+                <label for="actividadExcel">Actividad: </label>
+                <select name="actividadExcel" id="actividadExcel">
+                    <option value="0">- Seleccione la actividad -</option>
+                    <!--- Llama a las opciones registradas en la base de datos --->
+                    <?php 
+                    include '../db_conn.php';
+
+                    $atributos = $saml->getAttributes();
+                    $nocuenta = $atributos["uCuenta"][0];
+
+                    $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta'";
+                    $result = $conn->query($sql);
+
+
+                    if ($result->num_rows > 0) {
+                        // Iterar sobre los resultados y generar las filas de la tabla
+                        while ($row = $result->fetch_assoc()) {
+                        
+                            echo '<option value="'.$row['id_usuario'].'">' . $row['nombre'] . '</option>';
+                            
+                        }
+                    
+                    } 
+                    ?>
+                </select>
+                <br><br>
+                <div>
+                    <label for="inicioExcel">Fecha inicio</label>
+                    <input type="date" name="inicioExcel">
+                </div>
+                <div>
+                    <label for="finExcel">Fecha fin</label>
+                    <input type="date" name="finExcel">
+                </div>
+                <br>
+                <div class="text-end">
+                    <button class="btn btn-success" name="generarReporte">Generar reporte excel</button>
+                </div>
+                
+            </fieldset>
+        
+        
+        
+        <br><br>
+
+        </form>
+
+    </div>
 
     <script type="text/javascript" async="" src="https://www.ucol.mx/cms/apps/lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </div>

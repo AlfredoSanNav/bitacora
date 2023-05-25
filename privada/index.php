@@ -80,6 +80,8 @@ if ($result->num_rows >= 1) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/phpoffice/phpspreadsheet@1.18.0/dist/phpspreadsheet.min.js"></script>
+
 
 </head>
 <body>
@@ -162,7 +164,7 @@ if ($result->num_rows >= 1) {
                 
                 <label for="actividadFiltro">Actividad: </label>
                 <select name="actividadFiltro" id="actividadFiltro">
-                    <option value="0">- Selecciones actividad -</option>
+                    <option value="0">- Seleccione la actividad -</option>
                     <!--- Llama a las opciones registradas en la base de datos --->
                     <?php 
                     include '../db_conn.php';
