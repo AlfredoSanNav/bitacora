@@ -2,7 +2,6 @@
 // Conexión a la base de datos e inicio de sesión
 include '../db_conn.php';
 require_once("login.php");
-// Librería de PhpSpreadsheet desde la CDN
 
 if (isset($_POST['generarReporte'])) {
     if ($saml->isAuthenticated()) {
@@ -11,6 +10,8 @@ if (isset($_POST['generarReporte'])) {
     
     //Obtener información número de cuenta del usuario
     $nocuenta = $atributos["uCuenta"][0];
+    $nombre = $atributos["sn"][0];
+    $apellido = $atributos["givenName"][0];
 
     // Obtener los datos del formulario
     $actividad = $_POST['actividadExcel'];
@@ -24,29 +25,53 @@ if (isset($_POST['generarReporte'])) {
     } 
 
     // Realizar la consulta y obtener los datos de las tareas
-    $sql = "SELECT * FROM tareas WHERE num_cuenta = '$nocuenta' AND actividad = '$actividad' AND fecha > '$fechaInicio' AND fecha < '$fechaFin'";
+    $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta' AND actividad = '$actividad' AND fecha > '$fechaInicio' AND fecha < '$fechaFin'";
 
     // Ejecutar la consulta
     $result = $conn->query($sql);
 
     // Verificar si se obtuvieron resultados
     if ($result->num_rows > 0) {
-
+        echo '
+        <table border="1">
+        <thead>
+            <tr>
+            <th>Fecha</th>
+            <th>Actividad</th>
+            <th>Usuario</th>
+            <th>Descripción de Actividad</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            
+        
+        
+        ';
         // Iterar resultados        
         while ($row = $result->fetch_assoc()) {
             //  Crear registro
-
+            echo '
+                <tr>
+                <td>'.$row['fecha'].'</td>
+                <td>'.$row['actividad'].'</td>
+                <td>'.$apellido.' '.$nombre.'</td>
+                <td>'.$row['descripcion'].'</td>
+                </tr>
+            ';
         }
 
+        echo '
+            </tbody>
+            </table>
+        ';
 
+        header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
+        header("Content-Disposition: attachment; filename='Reporte de usuario ".$nocuenta.".xls'");
         
     } else {
-        echo "No se encontraron tareas que cumplan los criterios de búsqueda.";
-    }
-
-    header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1");
-    header("Content-Disposition: attachment; filename='Reporte de usuario".$nocuenta.".xls'");
+        echo '<script language="javascript">alert("No se encontraron tareas que cumplan los criterios de búsqueda.");</script>';
+        header("Location: panel.php");
+    }   
 }
-
-
 ?>
