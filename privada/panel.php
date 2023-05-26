@@ -109,12 +109,12 @@ if ($result->num_rows >= 1) {
                         echo '<td><div><a class="btn btn-outline-success" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
                         echo '<td><div><a class="btn btn-outline-primary" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
                         echo '
-                        <td>
-                        <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
-                        <input type="hidden" name="id" value='.$row['id_usuario'].'>
-                        <button class="btn btn-danger" type="submit">Eliminar</button>
-                        </form>
-                        </td>';
+                            <td>
+                                <form action="eliminarActividad.php" method="post">
+                                    <input type="hidden" name="id" value="'.$row['id_usuario'].'">
+                                    <button class="btn btn-danger" type="submit" onclick="return confirm(\'Si eliminas esta actividad tambien se eliminaran sus subactividades y tareas asociadas. ¿Deseas continuar?\');">Eliminar</button>
+                                </form>
+                            </td>';
 
                         // Hace la consulta para traer las subactividades
                         $idActividad = $row['id_usuario'];
@@ -127,13 +127,12 @@ if ($result->num_rows >= 1) {
                                 echo "<td>Esto es una subactividad</td>";
                                 echo '<td><div><a class="btn btn-outline-success" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
                                 echo '<td><div><a class="btn btn-outline-primary" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
-                                echo '
-                                <td>
-                                <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
-                                <input type="hidden" name="id" value='.$row['id_usuario'].'>
-                                <button class="btn btn-danger" type="submit">Eliminar</button>
-                                </form>
-                                </td>';
+                                echo '<td>
+                                            <form action="eliminarActividad.php" method="post">
+                                                <input type="hidden" name="id" value="'.$row['id_usuario'].'">
+                                                <button class="btn btn-danger" type="submit" onclick="return confirm(\'Si eliminas esta subactividad tambien se eliminaran las tareas asociadas. ¿Deseas continuar?\');">Eliminar</button>
+                                            </form>
+                                        </td>';
                             }
                         }
 
