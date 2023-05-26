@@ -44,10 +44,12 @@ if ($result->num_rows >= 1) {
     $nombreAct = $_POST['nombreAct'];
     $descripcionAct = $_POST['descripcionAct'];
     $correoInvitar = $_POST['correoInvitar'];
+    $actAsociada = $_GET['id'];
+    
   
     // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
-    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo)
-    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 1)";
+    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo, actividad_asociada)
+    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 1, '$actAsociada')";
     // Redirige a otra página o muestra un mensaje de éxito
     $result = mysqli_query($conn, $sql);
     

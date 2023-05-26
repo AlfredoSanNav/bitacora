@@ -96,7 +96,7 @@ if ($result->num_rows >= 1) {
                 $atributos = $saml->getAttributes();
                 $nocuenta = $atributos["uCuenta"][0];
 
-                $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta'";
+                $sql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta = '$nocuenta' AND tipo = 0";
                 $result = $conn->query($sql);
                 
                 // Verificar si hay resultados
@@ -105,13 +105,9 @@ if ($result->num_rows >= 1) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row['nombre'] . "</td>";
-                        if($row['tipo']==0){
-                            echo '<td><div><a class="btn btn-light" data-id="'.$row['id_usuario'].'" href="./agregaPanelSubact.php">Agregar subactividad</a></div></td>';
-                        } else {
-                            echo "<td>Esto es una subactividad</td>";
-                        };                        
-                        echo '<td><div><a class="btn btn-light" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
-                        echo '<td><div><a class="btn btn-light" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
+                        echo '<td><div><a class="btn btn-outline-success" data-id="'.$row['id_usuario'].'" href="./agregaPanelSubact.php?id='.$row['id_usuario'].'">Agregar subactividad</a></div></td>';                
+                        echo '<td><div><a class="btn btn-outline-success" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
+                        echo '<td><div><a class="btn btn-outline-primary" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
                         echo '
                         <td>
                         <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
@@ -119,7 +115,28 @@ if ($result->num_rows >= 1) {
                         <button class="btn btn-danger" type="submit">Eliminar</button>
                         </form>
                         </td>';
-                        
+
+                        // Hace la consulta para traer las subactividades
+                        $idActividad = $row['id_usuario'];
+                        $subsql = "SELECT * FROM ACTIVIDADES WHERE num_cuenta='$nocuenta' AND tipo = 1 AND actividad_asociada = '$idActividad'";
+                        $subresult = $conn->query($subsql);
+                        if ($subresult->num_rows > 0) {
+                            while ($row = $subresult->fetch_assoc()) {
+                                echo "<tr style='background-color: #e7ffc2;'>";
+                                echo "<td>" . $row['nombre'] . "</td>";
+                                echo "<td>Esto es una subactividad</td>";
+                                echo '<td><div><a class="btn btn-outline-success" href="verActividad.php?id='.$row['id_usuario'].' ">Ver</a></div></td>';
+                                echo '<td><div><a class="btn btn-outline-primary" href="editarActividad.php?id='.$row['id_usuario'].' ">Editar</a></div></td>';
+                                echo '
+                                <td>
+                                <form action="eliminarActividad.php" method="post" onsubmit="return confirm("¿Estás seguro de eliminar este registro?");">
+                                <input type="hidden" name="id" value='.$row['id_usuario'].'>
+                                <button class="btn btn-danger" type="submit">Eliminar</button>
+                                </form>
+                                </td>';
+                            }
+                        }
+
                     }
                 
                     echo "</table>";
