@@ -283,12 +283,22 @@ if ($result->num_rows >= 1) {
                 <article class="card mx-auto p-2" >
                     <br>
                     <header class=""><h5>'.$nombre." ".$apellido." ".'</h5></header>
-                    <span class="cursiva"><a href="#" >'.$nombreActividad.'</a> | <span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
-                    <br><br>
-				    <p>'.$row[descripcion].'</p>
-                    <p class="archivo pull-right"><a id="8671" href="descargar_archivo.php?id='.$row[id].'">Descargar</a></p><div class="clearfix"></div>
-                </article>
-                <br>
+                    ';
+                if($row['actividad']>0){
+                    echo '<span class="cursiva"><a href="#" >'.$nombreActividad.'</a> |
+                    <br><br>';
+                }
+                echo '
+                <span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
+                <p>'.$row[descripcion].'</p>';
+                    if (!empty($row['archivo'])) {
+                        // La celda contiene un archivo y el archivo existe en la ubicación especificada
+                         echo   '<p class="archivo pull-right"><a id="8671" href="descargar_archivo.php?id='.$row[id].'">Descargar</a></p><div class="clearfix"></div>';
+                      } 
+				
+                echo '
+                    </article>
+                    <br>
                 ';
                 
             }
