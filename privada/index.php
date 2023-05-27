@@ -49,11 +49,12 @@ if ($result->num_rows >= 1) {
     $nombreArchivo = $_FILES['archivo']['name'];
     $contenido_archivo = base64_encode(file_get_contents($archivo));
 
-    
-    // Test para añadir archivo (pendiente jeje)
-
-    // Fin del test
-    $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo, nombre_archivo)
+      // Validación de campo vacío
+      if (empty($tarea)) {
+        echo '<script>alert("El campo de tarea no puede estar vacío.");</script>';
+        
+    } else {
+     $sql = "INSERT INTO TAREAS (id, num_cuenta, descripcion, actividad, fecha, archivo, nombre_archivo)
               VALUES (NULL, '$noCuenta', '$tarea', '$actividad', '$fecha', '$contenido_archivo', '$nombreArchivo')";
   
     $result = mysqli_query($conn, $sql);
@@ -63,6 +64,9 @@ if ($result->num_rows >= 1) {
     } else {
       echo "Error al crear registro: " . mysqli_error($conn);
     }
+    }
+
+   
   }
 
 ?>    

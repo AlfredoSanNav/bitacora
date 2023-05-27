@@ -47,17 +47,24 @@ if ($result->num_rows >= 1) {
     $actAsociada = $_GET['id'];
     
   
-    // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
-    $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo, actividad_asociada)
-    VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 1, '$actAsociada')";
-    // Redirige a otra página o muestra un mensaje de éxito
-    $result = mysqli_query($conn, $sql);
+    if(!empty($nombreAct) && !empty($descripcionAct)){
+        // Haz algo con los datos recibidos, como guardarlos en la base de datos o enviar un correo electrónico
+        $sql = "INSERT INTO ACTIVIDADES (id_usuario, num_cuenta, nombre, descripcion, invitados, tipo, actividad_asociada)
+        VALUES (NULL, '$nocuenta', '$nombreAct', '$descripcionAct', '$correoInvitar', 1, '$actAsociada')";
+        // Redirige a otra página o muestra un mensaje de éxito
+        $result = mysqli_query($conn, $sql);
+        
+        if ($result) {
+            header("Location: panel.php");
+        } else {
+            echo "Error al crear registro: " . mysqli_error($conn);
+        }
+
+    } else {
+        echo '<script>alert("El nombre y la descripción no pueden estar vacíos.");</script>';
+    }
+
     
-    if ($result) {
-        header("Location: panel.php");
-      } else {
-        echo "Error al crear registro: " . mysqli_error($conn);
-      }
   }
 ?>    
 
