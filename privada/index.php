@@ -232,13 +232,11 @@ if ($result->num_rows >= 1) {
 
         $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta'";
 
-        // Pruebas para el botón de filtros ------------------->>
+        //Botón de filtros
         if(isset($_POST['btnFiltrar'])){
             $actividadFiltro = $_POST['actividadFiltro'];
             $fechaInicio = $_POST['fechaInicio'];
             $fechaFin = $_POST['fechaFin'];
-
-            
 
             // Verificar si se seleccionó un filtro de actividad
             if ($actividadFiltro > 0) {
@@ -259,6 +257,12 @@ if ($result->num_rows >= 1) {
             }
 
         }
+
+        if(isset($_POST['filtrarActividad'])){
+            $actividad = $_POST['actividad'];
+            $sql =$sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta' AND actividad = $actividad";
+        }
+
         if(isset($_POST['btnQuitarFiltro'])){
             $sql = "SELECT * FROM TAREAS WHERE num_cuenta = '$nocuenta'";
         }
@@ -289,8 +293,14 @@ if ($result->num_rows >= 1) {
                     <header class=""><h5>'.$nombre." ".$apellido." ".'</h5></header>
                     ';
                 if($row['actividad']>0){
-                    echo '<span class="cursiva"><a href="#" >'.$nombreActividad.'</a> |
-                    <br><br>';
+                    echo '
+                
+                    <form action="" method="post">
+                        <input type="hidden" name="actividad" value="'.$row['actividad'].'">
+                        <button class="btn btn-link" name="filtrarActividad" type="submit">'.$nombreActividad.'</button>
+                    </form>
+                    
+                    ';
                 }
                 echo '
                 <span class="pull-right"><em class="cursiva">'.$dateText.'</em></span>
