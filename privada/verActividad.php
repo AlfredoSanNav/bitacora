@@ -47,6 +47,7 @@ if ($result->num_rows >= 1) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body>
@@ -86,9 +87,9 @@ if ($result->num_rows >= 1) {
          $row = $result->fetch_assoc();
 
          // Mostrar la información de la actividad
-         echo "<p><b>Actividad:</b> " . $row['nombre'] . "</p>";
-         echo "<p><b>Descripción:</b> " . $row['descripcion'] . "</p>";
-         echo "<p><b>Correos invitados:</b> " . $row['invitados'] . "</p>";
+         echo "<p><b>Actividad:</b><br> " . $row['nombre'] . "</p><br>";
+         echo "<p><b>Descripción:</b><br> " . $row['descripcion'] . "</p><br>";
+         echo "<p><b>Correos invitados:</b><br> " . $row['invitados'] . "</p><br>";
         ?>
         <br>
         <a class="btn btn-success" href="./panel.php" style="witdh: 30%">Volver</a>

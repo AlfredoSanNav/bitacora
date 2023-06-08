@@ -8,6 +8,7 @@
     <title>Sistema de bitacora</title>
     <link rel="icon" type="image/x-icon" href="./img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
+    <link href="./privada/styles.css" rel="stylesheet">
 
 </head>
 
@@ -35,50 +36,9 @@
     </div>
 
 
-<!-- <?php
-        include 'db_conn.php';
-        require_once('config.php');
 
-        if ($saml->isAuthenticated()) {
-            $atributos = $saml->getAttributes();
-            ?>
-            <br>
-            <p>Existe sesión a nombre de
-                <?= $atributos["uNombre"][0] ?>
-            </p>
-            <br>
-            <a href='./privada/index.php'>Ir a sección privada</a>
-            <?php
-        } else {
-            ?>
-            <br>
-            <p>Este es un sistema que permite informar las actividades que se han realizado durante el día.</p>
-            <p>No hay sesión iniciada</p>
-            <div>
-                <a href='./privada/' class='btn btn-success'>Iniciar sesión</a>
-            </div>
-            <?php
-        }
-?> -->
 
-    <footer class=" text-white fixed-bottom " style="background-color: #333333">
-        <div class=" mx-auto p-2" style="width: 90%;">
-            <div class="text-end">
-                <p>Dirección: Av. Universidad No. 333, Las Víboras; CP 28040 Colima, Colima, México</p>
-            </div>
-            <div>
-                <a href="https://www.gob.mx/sep">Sep</a>
-                <a href="http://www.anuies.mx/">Anuies</a>
-                <a href="https://www.cumex.org.mx/">Cumex</a>
-                <a href="http://www.federaciondeestudiantescolimenses.com/">Fec</a>
-                <a href="https://portal.ucol.mx/feuc/">Feuc</a>
-            </div>
-            <div class="text-end">
-                <p>© Derechos Reservados Universidad de Colima</p>
-            </div>
-        </div>
 
-    </footer>
 
 
 

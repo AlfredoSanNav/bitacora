@@ -12,14 +12,15 @@ $resultado = $conn->query($sql);
 if ($resultado && mysqli_num_rows($resultado) > 0) {
     $fila = mysqli_fetch_assoc($resultado);
     $tipo = $fila['tipo'];
+    
 
     //Consulta si el registro es una actividad o subactividad
         if($tipo == 0){
-            $query = "DELETE FROM TAREAS WHERE actividad = $id";
+            $query = "DELETE FROM TAREAS WHERE actividad = $idactividad";
             $result = mysqli_query($conn, $query);
-            $query = "DELETE FROM ACTIVIDADES WHERE actividad_asociada = $id";
+            $query = "DELETE FROM ACTIVIDADES WHERE actividad_asociada = $idactividad";
             $result2 = mysqli_query($conn, $query);
-            $query = "DELETE FROM ACTIVIDADES WHERE id_usuario = $id";
+            $query = "DELETE FROM ACTIVIDADES WHERE id_usuario = $idactividad";
             $result3 = mysqli_query($conn, $query);
             if ($result) {
                     echo "Registro eliminado correctamente";

@@ -85,7 +85,7 @@ if ($result->num_rows >= 1) {
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/phpoffice/phpspreadsheet@1.18.0/dist/phpspreadsheet.min.js"></script>
-
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body>
@@ -105,7 +105,7 @@ if ($result->num_rows >= 1) {
     <br>
     <div class="mx-auto p-2" style="width: 75%;">
 
-        <a class="btn btn-light" href="./index.php">Bitácora</a>
+        <a class="btn btn-light" style="background-color: #5c8c2c; color:#FFFFFF;" href="./index.php">Bitácora</a>
         <a class="btn btn-light" href="./panel.php">Panel</a>
 
     </div>
@@ -145,9 +145,9 @@ if ($result->num_rows >= 1) {
                 } 
                 ?>
 
-            </select>
+            </select><br><br>
             <label>Fecha</label>
-            <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>">
+            <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>"><br>
 
 
         </div>
@@ -195,12 +195,11 @@ if ($result->num_rows >= 1) {
                 <div>
                     <label for="fechaInicio">Fecha inicio</label>
                     <input type="date" name="fechaInicio">
-                </div>
-                <div>
+                </div><br>
+                <div><br>
                     <label for="fechaFin">Fecha fin</label>
                     <input type="date" name="fechaFin">
-                </div>
-                <br>
+                </div><br>
                 <div class="text-end">
                     <button class="btn btn-danger" name="btnQuitarFiltro" id="btnQuitarFiltro">Deshacer filtrado</button>
                     <button class="btn btn-success" name="btnFiltrar" id="btnFiltrar">Filtrar</button>

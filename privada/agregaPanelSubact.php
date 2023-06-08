@@ -81,6 +81,7 @@ if ($result->num_rows >= 1) {
 
     <link rel="icon" type="image/x-icon" href="../img/Escudo_UdeC.png">
     <link href="https://www.ucol.mx/cms/apps/assets/css/apps.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
 </head>
 <body>
@@ -112,15 +113,15 @@ if ($result->num_rows >= 1) {
                 <p>
                     <label for="nombreAct">Nombre:</label>
                     <input type="text" name="nombreAct" >
-                </p>
+                </p><br>
                 <p>
                     <label for="descripcionAct">Descripción:</label>
                     <input type="text" name="descripcionAct" >
-                </p> 
+                </p><br>
                 <p>
-                    <label for="correoInvitar">Invitar:</label>
+                    <label for="correoInvitar">Invitar:</label><br>
                     <input type="email" multiple  name="correoInvitar" >
-                </p>
+                </p><br>
                 <a class="btn btn-danger" name="btnCalcelarAct" href="./panel.php">Cancelar</a>
                 <button class="btn btn-success" name="btnAgregaAct" type="submit" >Guardar</button>
             </fieldset>
